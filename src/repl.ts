@@ -8,7 +8,7 @@ export function startREPL() {
 
     const st = state.initState()
     st.interface.prompt();
-    st.interface.on('line', (line: string) => {
+    st.interface.on('line', async (line: string) => {
         const cleanedInput = cleanInput(line);
 
         if (cleanedInput.length === 0){
@@ -24,7 +24,7 @@ export function startREPL() {
             return;
         }
 
-        registry[command].callback(st);
+        await registry[command].callback(st);
         if (command !== "exit"){
             st.interface.prompt();
         }
