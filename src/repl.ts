@@ -1,4 +1,5 @@
 import * as readline from 'node:readline';
+import * as cliCommands from "./cli_commands.js";
 export function cleanInput(input: string): string[] {
     const result = input.trim().toLowerCase().split(/\s+/).filter(word => word !== '');
     return result;
@@ -19,8 +20,19 @@ const rl = readline.createInterface({
             rl.prompt();
             return;
         }
-        console.log(`Your command was: ${cleanedInput[0]}`);
-        rl.prompt();
+
+        const registry = cliCommands.getCommands();
+        const command = cleanedInput[0];
+        if (!registry[command]) {
+            console.log("Unknown command");
+            rl.prompt();
+            return;
+        }
+
+        registry[command].callback(registry);
+        if (command !== "exit"){
+            rl.prompt();
+        }
     })
 
 }
