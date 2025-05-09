@@ -6,6 +6,7 @@ import { PokeAPI, Pokemon } from "./pokeapi.js";
 import { commandExplore } from "./command_explore.js";
 import { commandCatch } from "./command_catch.js";
 import { commandInspect } from "./command_inspect.js";
+import { commandPokedex } from "./command_pokedex.js";
 export type CLICommand = {
     name: string;
     description: string;
@@ -61,9 +62,14 @@ export type CLICommand = {
           callback: commandCatch,
         },
         inspect: {
-          name: "inspect <pokemon",
+          name: "inspect <pokemon>",
           description: "Inspects a caught Pokémon. Usage: inspect <pokemon>",
           callback: commandInspect,
+        },
+        pokedex: {
+          name: "pokedex",
+          description: "Shows all caught Pokémon.",
+          callback: commandPokedex,
         }
     };
     const pokeapi: PokeAPI = new PokeAPI();
