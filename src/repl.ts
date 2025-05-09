@@ -24,7 +24,9 @@ export function startREPL() {
             return;
         }
 
-        await registry[command].callback(st);
+        const arg = cleanedInput[1];
+
+        await registry[command].callback(st, arg);
         if (command !== "exit"){
             st.interface.prompt();
         }
