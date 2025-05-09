@@ -22,7 +22,8 @@ export async function commandCatch(state: State, ...args: string[]): Promise<voi
 
     console.log(`Throwing a Pokeball at ${pokemon}...`);
 
-    let chance = 100 - targetPokemon.base_experience / 10;
+    let chance = 100 - Math.sqrt(targetPokemon.base_experience) * 5;
+
 
     if (chance < 10) {
         chance = 10;
@@ -31,6 +32,7 @@ export async function commandCatch(state: State, ...args: string[]): Promise<voi
     }
 
     const r = getRandomInt(0, 100);
+
 
     if (r < chance) {
         console.log(`${targetPokemon.name} was caught!`);
